@@ -1332,7 +1332,7 @@ class Component extends DCLogic {
       if(isSel){ btnStyle='width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid '+(isOpt?'#255449':'var(--action-primary-border)')+';border-radius:8px;background:'+(isOpt?'#2F6B5E':'var(--action-primary)')+';color:#fff;font:var(--type-button);padding:14px;cursor:pointer;box-shadow:'+(isOpt?'0 0 15px rgba(47,107,94,.24), var(--shadow-ambient)':'var(--shadow-primary)')+';'; label=isOpt?'Added':'Selected'; }
       else if(selDisabled){ btnStyle='width:100%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-subtle);color:var(--text-faint);font:var(--type-button);padding:14px;cursor:not-allowed;'; label='Pick a state first'; }
       else { const bdr=isOpt?'#255449':'var(--action-primary-border)', glow=isOpt?'0 0 15px rgba(47,107,94,.24), var(--shadow-ambient)':'var(--shadow-primary)';
-        btnStyle=rich
+        btnStyle=false
         ? 'width:100%;display:flex;align-items:center;justify-content:center;border:1px solid '+bdr+';border-radius:8px;background:'+accent.fg+';color:#fff;font:var(--type-button);padding:14px;cursor:pointer;box-shadow:'+glow+';'
         : 'width:100%;display:flex;align-items:center;justify-content:center;border:2px solid '+accent.fg+';border-radius:8px;background:#fff;color:'+accent.fg+';font:var(--type-button);padding:13px;cursor:pointer;'; label=(isOpt||rich)?'Add to set':'Select'; if(rich&&!isOpt&&baseDelta>0) label='Add to set for +'+this.fmt(baseDelta); if(rich&&isOpt) label='Add to set for +'+this.fmt(addPrice); }
       if(isSel&&rich) label=isOpt?'Added to your set':'In your set';
@@ -1364,7 +1364,7 @@ class Component extends DCLogic {
         onInfo:()=>this.openOverview(id,i), onPillEnter:(e)=>this.pillHover(e,true), onPillLeave:(e)=>this.pillHover(e,false), onSelect:()=>{ if(isSel) this.deselectItem(id); else this.selectModel(id,i); }, isSel,
         selectBtnStyle:btnStyle, selectLabel:label,
         cardStyle:'background:#fff;border-radius:14px;overflow:hidden;border:'+(isSel?'2px solid '+accent.fg:'1px solid var(--border-hairline)')+';box-shadow:'+(isSel?'0 8px 24px rgba(43,94,161,.16)':'var(--shadow-ambient)')+';'+(stack?(twoCol?'display:flex;flex-direction:column;height:100%;':''):'display:flex;flex-direction:row;'),
-        imgWrapStyle:stack?'position:relative;width:100%;aspect-ratio:'+(twoCol?'4/3':'1/1')+';background:#EEF1F5;touch-action:pan-y;cursor:grab;user-select:none;':'position:relative;flex:none;width:46%;aspect-ratio:1/1;align-self:flex-start;background:#EEF1F5;cursor:grab;user-select:none;',
+        imgWrapStyle:stack?'position:relative;width:100%;aspect-ratio:'+(twoCol?(slv==='both'?'16/9':'4/3'):'1/1')+';background:#EEF1F5;touch-action:pan-y;cursor:grab;user-select:none;':'position:relative;flex:none;width:46%;aspect-ratio:1/1;align-self:flex-start;background:#EEF1F5;cursor:grab;user-select:none;',
         bodyStyle:stack?'padding:'+(twoCol?'18px 20px 20px':'14px 15px 16px')+';display:flex;flex-direction:column;gap:12px;'+(twoCol?'flex:1;min-height:0;':''):'flex:1;min-width:0;padding:22px 24px;display:flex;flex-direction:column;gap:13px;'
       };
     });
@@ -1842,7 +1842,7 @@ class Component extends DCLogic {
       stepScreenStyle:'position:absolute;inset:0;z-index:30;background:var(--surface-tint);display:flex;flex-direction:column;animation:fadeIn .2s;',
       stepHeaderStyle:'flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:'+(isMobile?'8px 12px 10px':'14px 22px')+';background:#fff;border-bottom:1px solid var(--border-hairline);',
       stepBodyStyle:roomCol
-        ? 'flex:1;overflow-y:auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) '+(twoCol?'336px':'384px')+';gap:'+(twoCol?'24px':'30px')+';align-items:start;padding:0 '+(twoCol?'24px':'30px')+';'
+        ? 'flex:1;overflow-y:auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) '+(twoCol?'336px':'384px')+';gap:'+(twoCol?'24px':'30px')+';align-items:start;padding:0 max('+(twoCol?'24px':'30px')+', calc((100% - '+(twoCol?'1280px':'1180px')+') / 2));'
         : 'flex:1;overflow-y:auto;min-height:0;',
       stepColStyle:isMobile
         ? 'padding:16px 16px 24px;display:flex;flex-direction:column;gap:16px;'
