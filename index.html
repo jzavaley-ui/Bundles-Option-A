@@ -821,7 +821,7 @@
           <div style="{{ stepColStyle }}">
             <div>
               <h2 style="font-family:var(--font-display);font-size:26px;color:var(--text-heading);margin:0 0 4px;font-weight:400;line-height:1.1;">{{ step.title }}</h2>
-              <p style="font:var(--type-body-sm);color:var(--text-muted);margin:0 0 14px;">{{ step.subtitle }}</p>
+              <sc-if value="{{ showStepSub }}" hint-placeholder-val="{{ true }}"><p style="font:var(--type-body-sm);color:var(--text-muted);margin:0 0 14px;">{{ step.subtitle }}</p></sc-if>
             </div>
             <sc-if value="{{ step.hasDataNote }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--border-subtle);border-radius:10px;padding:11px 14px;">
@@ -1853,6 +1853,7 @@ class Component extends DCLogic {
         ? 'display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:'+(roomCol?'16px':'20px')+';align-items:stretch;'
         : 'display:grid;grid-template-columns:minmax(0,1fr);gap:'+(isMobile?'16px':'20px')+';align-items:stretch;',
       showRoomPreview:roomCol,
+      showStepSub:!(isDesktop && sl==='both'),
       showRoomMobile:isMobile,
       roomMobileOpen:!!this.state.roomMobileOpen,
       roomMobileHint:this.state.roomMobileOpen?'Tap to collapse':'Tap to see your set in the room',
